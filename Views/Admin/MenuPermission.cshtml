@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "Menu Permission";
+}
+
+<form id="regForm" action="MenuPermission" mehtod="post">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-content">
+                <div class="row">
+                    <div class="card-header card-header-icon" data-background-color="rose">
+                        <i class="fa fa-users fa-2x"></i>
+
+                    </div>
+                    <label for="exampleFormControlSelect1">Menu Permission</label>
+
+                    <div class="form-group">
+                        <div class="col-sm-9 col-sm-offset-1">
+                            <div class="col-sm-8 col-sm-offset-2">
+
+                                <center>
+                                    @{
+                                        <select class="form-control" name="cpid" id="exampleFormControlSelect1">
+
+                                            @foreach (System.Data.DataRow us in ViewBag.UserInfo.Rows)
+                                            {
+                                                if (@us["user_text"].ToString() == ViewBag.cpid.ToString())
+                                                {
+                                                    <option value="@us["user_text"].ToString()" selected>@us["user_name"]</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@us["user_text"].ToString()">@us["user_name"]</option>
+                                                }
+
+
+                                            }
+                                        </select>
+                                    }
+
+                                </center>
+                            </div><br><br><br><br>
+                            <div class="row">
+                                @{
+                                    int i = 1;
+                                    foreach (System.Data.DataRow dr in ViewBag.MenuData1.Rows)
+                                    {
+                                        <h6><b class="">@dr["MNUM_NAME"]</b></h6>
+                                         
+                                            foreach (System.Data.DataRow dt in ViewBag.MenuData2.Rows)
+                                            {
+                                                if (@dr["OID"].ToString() == @dt["OID"].ToString())
+                                                {
+                                                    if (@dt["chk"].ToString() == "1")
+                                                    {
+                                                        <div class="col-sm-offset-2">
+                                                            <div style="" class="checkbox checkbox-inline">
+                                                                <label>
+                                                                    <input value="@dt["MNUD_TEXT"]" id="@dt["MNUD_TEXT"]" type="checkbox" name="Data" @if (@ViewBag.disa != null) { @ViewBag.disa     } checked>@dt["MNUD_SNAM"]
+                                                                </label>
+                                                            </div>									
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="col-sm-offset-2">
+                                                            <div style="" class="checkbox checkbox-inline">
+                                                                <label>
+                                                                    <input value="@dt["MNUD_TEXT"]" id="@dt["MNUD_TEXT"]" type="checkbox" name="Data" @if (@ViewBag.disa != null) { @ViewBag.disa    }>@dt["MNUD_SNAM"]
+                                                                </label>
+                                                            </div>									
+                                                        </div>
+
+                                                    }
+
+                                                }
+                                                i++;
+                                            }
+                                    }
+
+                                }
+                                
+                                </div>
+                                @if (ViewBag.bt == 0)
+                                {
+                                    <div class="col-sm-offset-5">
+                                        <button type="submit" name="bt" value="1" class="btn btn-fill btn-blue">Check</button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-sm-offset-5">
+                                        <button type="submit" name="bt" value="1" class="btn btn-fill btn-blue">Check</button>
+                                        @if (Convert.ToInt32(Session["type"]) < 3) 
+                                        {
+                                            <button type="submit" name="bt" value="2" class="btn btn-fill btn-blue">Submit</button>
+                                        }
+                                    </div>
+                                }
+                            </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

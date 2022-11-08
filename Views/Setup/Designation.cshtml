@@ -1,0 +1,239 @@
+﻿@{
+    ViewBag.Title = "Create Designation";
+}
+<div class="container">
+    <form action="SaveDesignation" method="post">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card">
+                    <br>
+                    @if (Session["type"].ToString() != "4")
+                    { 
+                    <b>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-users fa-2x text-success">&nbsp;&nbsp;</i>Create Designation</b>                   
+                        if (ViewBag.bt == "0")
+                        {
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                <input name="oid" maxlength="5" placeholder="Dept. Type ID" class="form-control" type="text" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon glyphicon-king"></i></span>
+                                                @{
+                                                    <select class="form-control" name="dptp" id="exampleFormControlSelect1" required>
+
+                                                        <option value="">Select Designation Type</option>
+
+                                                        @foreach (System.Data.DataRow us in ViewBag.DesgType.Rows)
+                                                        {
+                                                            <option value="@us["oid"]">@us["desgtp_name"]</option>
+
+                                                        }
+                                                    </select>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                <input name="dname" placeholder="Designation Name" class="form-control" type="text" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-record"></i></span>
+                                                <input name="bname" placeholder="Bangla Name" class="form-control" type="text" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <center>
+                                    <button value="0" name="bt" type="submit" class="btn bt- btn-info">Save Information <span class="glyphicon glyphicon-store"></span></button>
+                                </center>
+                            </div>
+                        }
+                        else
+                        {   @*  Editing Compnay Information*@
+
+
+                            foreach (System.Data.DataRow US in ViewBag.DesgInfo.Rows)
+                            {
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                    <input value="@US["oid"]" placeholder="Company ID" class="form-control" type="text" disabled>
+                                                    <input name="oid" value="@US["oid"]" type="text" hidden>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                    @{
+                                                        <select class="form-control" name="dptp" id="exampleFormControlSelect1">
+
+                                                            @foreach (System.Data.DataRow dpt in ViewBag.DesgType.Rows)
+                                                            {
+                                                                if (@dpt["oid"].ToString() == @US["dgtp"].ToString())
+                                                                {
+                                                                    <option value="@dpt["oid"].ToString()" selected>@dpt["desgtp_name"]</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@dpt["oid"].ToString()">@dpt["desgtp_name"]</option>
+                                                                }
+
+
+                                                            }
+                                                        </select>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                    <input name="dname" value="@US["desg_name"]" placeholder="Company Name" class="form-control" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-record"></i></span>
+                                                    <input name="bname" value="@US["desg_bnam"]" placeholder="Short Name" class="form-control" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-modal-window"></i></span>
+                                                    <input name="actv" value="@US["desg_actv"]" placeholder="Company Type" class="form-control" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <center>
+                                        <button value="1" name="bt" type="submit" class="btn bt- btn-info">Save Information <span class="glyphicon glyphicon-store"></span></button>
+                                    </center>
+                                </div>
+
+                            }
+
+
+                        }
+                    }
+                    @*Table for showing Designation information*@
+                    @if (ViewBag.Desg != null)
+                    {
+                        <div class="col-md-11">
+                            <div class="card">
+                                <b>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-users fa-2x text-success">&nbsp;&nbsp;</i>All Designation</b>
+                                <table class="table">
+                                    <tbody>
+                                        @{
+                                            int i = 1;
+                                            foreach (System.Data.DataRow dr in ViewBag.Desg.Rows)
+                                            {
+
+
+                                                <tr>
+                                                    <td class="text-center">@i</td>
+                                                    <td colspan="2">@dr["desg_name"]</td>
+                                                    <td colspan="2">@dr["desgtp_name"]</td>
+                                                    <td>@dr["desg_bnam"]</td>
+
+                                                    @if (@dr["desg_actv"].ToString() == "1")
+                                                    {
+                                                        <td class="text-right text-success">Active</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="text-right text-danger">Deactivated</td>
+
+                                                    }
+
+                                                    <td class="td-actions text-right">
+                                                        @if (Session["type"].ToString() != "4") 
+                                                        {
+                                                            <a href="Designation?bt=1&cpid=@dr["OID"]" class="btn btn-success btn-simple">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                        }
+                                                        @if (Convert.ToInt32(Session["type"]) < 3) 
+                                                        {
+                                                            if (@dr["desg_actv"].ToString() == "1")
+                                                            {
+                                                                <a href="SaveDesignation?bt=3&cpid=@dr["OID"]&actv=@dr["desg_actv"]" onclick="return confirm(' Disable  Designation?');" class="btn btn-danger btn-simple">
+                                                                    <i class="fa fa-close"></i>
+                                                                </a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a href="SaveDesignation?bt=3&cpid=@dr["OID"]&actv=@dr["desg_actv"]" onclick="return confirm('Enable Designation?');" class="btn btn-success btn-simple">
+                                                                    <i class="fa fa-check"></i>
+                                                                </a>
+                                                            }
+                                                        }
+                                                        
+                                                    </td>
+                                                </tr>
+                                                    i++;
+                                            }
+                                        }
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
+</div>
+

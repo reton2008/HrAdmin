@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "All SIM List";
+}
+<div class="container">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="card">
+                @if (ViewBag.AllSIM != null)
+                {
+                    <div class="col-md-11">
+                        <div class="card">
+                            <b>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-phone-square fa-3x text-success">&nbsp;</i>All SIM List</b> <br>
+                            <form action="AllSIM" method="post">
+                                <div class="col-lg-6 col-md-offset-3">
+                                    <div class="input-group">
+                                        <input type="text" name="snmbr" class="form-control" placeholder="Search for..." required>
+                                        <span class="input-group-btn">
+                                            <button value="4" name="bt" type="submit" class="btn bt- btn-info btn-round">Search</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+                            <table class="table">
+                                <tbody>
+                                    @{
+                                        int i = 1;
+                                        foreach (System.Data.DataRow dr in ViewBag.AllSIM.Rows)
+                                        {
+
+                                            <tr>
+                                                <td class="text-center">@i</td>
+                                                <td colspan="2">@dr["esim_onam"]</td>
+                                                <td>@dr["esim_nmbr"]</td>
+                                                <td>@dr["esim_limit"]</td>
+                                                @if (@dr["esim_pavl"].ToString() == "1")
+                                                {
+                                                    <td class="text-right text-success">Allocated</td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="text-right text-danger">Not Allocated</td>
+
+                                                }
+                                                @if (@dr["esim_actv"].ToString() == "1")
+                                                {
+                                                    <td class="text-right text-success">Available</td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="text-right text-danger">Deactivated</td>
+
+                                                }
+
+                                                <td class="td-actions text-right">
+                                                    @if (Session["type"].ToString() != "4") 
+                                                    {
+                                                        <a href="SIMCreate?bt=1&cpid=@dr["OID"]" class="btn btn-success btn-simple">
+                                                            <i class="fa fa-pencil" ></i>
+                                                        </a>
+                                                    }
+                                                    @if (Convert.ToInt32(Session["type"]) < 3) 
+                                                    {
+                                                        if (@dr["esim_actv"].ToString() == "1")
+                                                        {
+                                                            <a href="SaveSIM?bt=3&cpid=@dr["OID"]&actv=@dr["esim_actv"]" onclick="return confirm('Are you sure you want to disable this phone number?');" class="btn btn-danger btn-simple">
+
+                                                                <i class="fa fa-close"></i>
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="SaveSIM?bt=3&cpid=@dr["OID"]&actv=@dr["esim_actv"]" onclick="return confirm('Are you sure  you want to enable this phone number?');" class="btn btn-success btn-simple">
+
+                                                                <i class="fa fa-check"></i>
+                                                            </a>
+
+
+                                                        }
+                                                    }
+                                                 </td>
+                                            </tr>
+                                                    i++;
+                                        }
+                                    }
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <h1>No Data Found</h1>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+
+    <script type="text/javascript">
+        function ConfirmDelete() {
+            var x = confirm("Are you sure you want to delete?");
+            if (x)
+                return true;
+            else
+                return false;
+        }
+
+    </script>
+
+}

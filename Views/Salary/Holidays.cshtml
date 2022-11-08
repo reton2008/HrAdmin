@@ -1,0 +1,233 @@
+﻿@{
+    ViewBag.Title = "Creating Holidays";
+}
+<div class="container">
+    <form action="SaveHday" method="post">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card">
+                    <br>
+                        @if (Session["type"].ToString() != "4") 
+                        {
+                            <b>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-times-rectangle fa-2x text-danger">&nbsp;&nbsp;</i>Create Holidays</b>
+                            {
+                                if (ViewBag.bt == "0")
+                                {
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="col-md-10 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                        <input name="oid" placeholder="Group ID" class="form-control" type="text" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="col-md-10 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                        <input name="hname" placeholder="Holiday name" class="form-control" type="text" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="col-md-10 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                            <label class="label-control">From Date</label>
+                                                        </span>
+                                                        <input name="date" class="form-control datepicker" value="" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="col-md-10 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-record"></i></span>
+                                                        @{
+                                                            <select class="form-control" name="acyl" id="exampleFormControlSelect1">
+
+                                                                <option value="0" selected>Select Salary Cycle</option>
+
+                                                                @foreach (System.Data.DataRow us in ViewBag.Acyl.Rows)
+                                                                {
+                                                                    <option value="@us["oid"]">@us["acyl_name"]</option>
+
+                                                                }
+                                                            </select>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div id="sliderRegular" class="slider" hidden></div>
+                                                <div id="sliderDouble" class="slider slider-info" hidden></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <center>
+                                            <button value="0" name="bt" type="submit" class="btn bt- btn-info">Save Information <span class="glyphicon glyphicon-store"></span></button>
+                                        </center>
+                                    </div>
+                                }
+                                else
+                                {   @*  Editing Compnay Information*@
+
+
+                                    foreach (System.Data.DataRow US in ViewBag.HdayInfo.Rows)
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="col-md-10 inputGroupContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                            <input value="@US["oid"]" placeholder="Company ID" class="form-control" type="text" disabled>
+                                                            <input name="oid" value="@US["oid"]" type="text" hidden>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="col-md-10 inputGroupContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                            <input name="hname" value="@US["hday_name"]" placeholder="Company Name" class="form-control" type="text">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="col-md-10 inputGroupContainer">
+                                                        <div class="input-group date">
+                                                            <span class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                                <label class="label-control">From Date</label>
+                                                            </span>
+                                                            <input name="date" class="form-control datepicker" value="@String.Format("{0:dd/MM/yyyy}", @US["hday_fdat"])" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="col-md-10 inputGroupContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-modal-window"></i></span>
+                                                            @{
+                                                                <select class="form-control" name="acyl" id="exampleFormControlSelect1">
+
+                                                                    @foreach (System.Data.DataRow dpt in ViewBag.Acyl.Rows)
+                                                                    {
+                                                                        if (@dpt["oid"].ToString() == @US["hday_acyl"].ToString())
+                                                                        {
+                                                                            <option value="@dpt["oid"].ToString()" selected>@dpt["acyl_name"]</option>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <option value="@dpt["oid"].ToString()">@dpt["acyl_name"]</option>
+                                                                        }
+
+
+                                                                    }
+                                                                </select>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div id="sliderRegular" class="slider" hidden></div>
+                                                    <div id="sliderDouble" class="slider slider-info" hidden></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <center>
+                                                <button value="1" name="bt" type="submit" class="btn bt- btn-info">Save Information <span class="glyphicon glyphicon-store"></span></button>
+                                            </center>
+                                        </div>
+
+                                    }
+
+
+                                }
+                            }
+                        }
+                    
+                        @*Table for showing compnay information*@
+                        @if (ViewBag.Holiday != null)
+                        {
+                            <div class="col-md-11">
+                                <div class="card">
+                                    <b>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-times-rectangle fa-2x text-danger">&nbsp;&nbsp;</i>All Holidays</b>
+                                    <table class="table">
+                                        <tbody>
+                                            @{
+                                                int i = 1;
+                                                foreach (System.Data.DataRow dr in ViewBag.Holiday.Rows)
+                                                {
+
+                                                    <tr>
+                                                        <td class="text-center">@i</td>
+                                                        <td colspan="2">@dr["hday_name"]</td>
+                                                        <td colspan="2">@String.Format("{0:dd/MM/yyyy}", @dr["hday_fdat"])</td>
+                                                        <td colspan="2">@dr["cycle"]</td>
+                                                        <td class="td-actions text-right">
+                                                        @if (Session["type"].ToString() != "4") 
+                                                        {
+                                                        <a href="Holidays?bt=1&cpid=@dr["OID"]" class="btn btn-success btn-simple">
+                                                             <i class="fa fa-edit"></i>
+                                                        </a>
+                                                        }                                                            
+                                                     </td>
+                                                    </tr>
+                                                    i++;
+                                                }
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        }
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            md.initSliders()
+            demo.initFormExtendedDatetimepickers();
+        });
+    </script>
+}
+

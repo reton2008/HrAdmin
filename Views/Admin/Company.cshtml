@@ -1,0 +1,302 @@
+﻿@{
+    ViewBag.Title = "Employee Management";
+}
+<div class="container">
+    <form action="SaveCompany" method="post">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card">
+                    <br>
+                    <b>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-building-o fa-2x text-gray">&nbsp;&nbsp;</i>Conpany Information</b>
+                    @{
+                        if (Session["type"].ToString() != "4")
+                        {
+                                                        if (ViewBag.bt == 0)
+                        {
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                <input name="oid" placeholder="Company ID" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                <input name="cpname" placeholder="Company Name" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-record"></i></span>
+                                                <input name="sname" placeholder="Sort Name" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-modal-window"></i></span>
+                                                <input name="ctype" placeholder="Company Type" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                                <input name="addr" placeholder="Address" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+                                                <input name="tphone" placeholder="Telephone" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-print"></i></span>
+                                                <input name="fax" placeholder="Fax" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                                <input name="email" placeholder="E-mail" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                                <input name="website" placeholder="Website" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <center>
+                                    <button value="0" name="bt" type="submit" class="btn bt- btn-info">Save Company <span class="glyphicon glyphicon-store"></span></button>
+                                </center>
+                            </div>
+                        }
+                        else
+                        {   @*  Editing Compnay Information*@
+
+
+                            foreach (System.Data.DataRow US in ViewBag.SingleUser.Rows)
+                            {
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                    <input value="@US["oid"]" placeholder="Company ID" class="form-control" type="text" disabled>
+                                                    <input name="oid" value="@US["oid"]" type="text" hidden>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                    <input name="cpname" value="@US["acmp_name"]" placeholder="Company Name" class="form-control" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-record"></i></span>
+                                                    <input name="sname" value="@US["acmp_bnam"]" placeholder="Short Name" class="form-control" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-modal-window"></i></span>
+                                                    <input name="ctype" value="@US["acmp_type"]" placeholder="Company Type" class="form-control" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                                    <input name="addr" value="@US["acmp_addr"]" placeholder="Address" class="form-control" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+                                                    <input name="tphone" value="@US["acmp_teln"]" placeholder="Telephone" class="form-control" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-print"></i></span>
+                                                    <input name="fax" value="@US["acmp_faxn"]" placeholder="Fax" class="form-control" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                                    <input name="email" value="@US["acmp_mail"]" placeholder="E-mail" class="form-control" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                                    <input name="website" value="@US["acmp_urln"]" placeholder="Website" class="form-control" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <center>
+                                        <button value="1" name="bt" type="submit" class="btn bt- btn-info">Save Company <span class="glyphicon glyphicon-store"></span></button>
+                                    </center>
+                                </div>
+
+                            }
+                        }
+                        }
+                    }
+                    @*Table for showing compnay information*@
+                    <div class="col-md-11">
+                        <div class="card">
+                            <b>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-building-o fa-2x text-gray">&nbsp;&nbsp;</i>All Conpany Information</b>
+                            <table class="table">
+                                <tbody>
+                                    @{
+                                        int i = 1;
+                                        foreach (System.Data.DataRow dr in ViewBag.Company.Rows)
+                                        {
+
+                                            <tr>
+                                                <td class="text-center">@i</td>
+                                                <td colspan="2">@dr["acmp_name"]</td>
+                                                <td>@dr["acmp_bnam"]</td>
+
+                                                <td class="text-left">@dr["acmp_addr"]</td>
+
+                                                @if (@dr["acmp_actv"].ToString() == "1")
+                                                {
+                                                    <td class="text-right text-success">Active</td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="text-right text-danger">Deactivated</td>
+
+                                                }
+
+                                                <td class="td-actions text-right">
+                                                    @if (Session["type"].ToString() != "4") 
+                                                    {
+                                                        <a href="Company?bt=1&cpid=@dr["OID"]" class="btn btn-success btn-simple">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                    }
+                                                    @if (Convert.ToInt32(Session["type"]) < 3)
+                                                    {
+                                                        if (@dr["acmp_actv"].ToString() == "1")
+                                                        {
+                                                            <a href="UpdateCompany?bt=3&cpid=@dr["OID"]&actv=@dr["acmp_actv"]" onclick="return confirm('Disable  This Company?');" class="btn btn-danger btn-simple">
+                                                                <i class="fa fa-close"></i>
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="UpdateCompany?bt=3&cpid=@dr["OID"]&actv=@dr["acmp_actv"]" onclick="return confirm('Disable  This Company?');" class="btn btn-success btn-simple">
+                                                                <i class="fa fa-check"></i>
+                                                            </a>
+                                                        }
+                                                    }
+                                                    
+                                                </td>
+                                            </tr>
+                                                i++;
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+

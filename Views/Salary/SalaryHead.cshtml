@@ -1,0 +1,198 @@
+﻿@{
+    ViewBag.Title = "Creating Salary Head";
+}
+<div class="container">
+    <form action="SaveSalaryHead" method="post">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card">
+                    <br>
+                    @if (Session["type"].ToString() != "4")
+                    { 
+
+                    <b>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-dollar fa-2x text-info">&nbsp;&nbsp;</i>Create Salary Head</b>
+                    
+                        if (ViewBag.bt == "0")
+                        {
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                <input name="oid" placeholder="Head ID" class="form-control" type="text" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                <input name="name" placeholder="Salary Head Name" class="form-control" type="text" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-record"></i></span>
+                                                <input name="sign" placeholder="Head Sign" maxlength="2" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <center>
+                                    <button value="0" name="bt" type="submit" class="btn bt- btn-info">Save Information <span class="glyphicon glyphicon-store"></span></button>
+                                </center>
+                            </div>
+                        }
+                        else
+                        {   @*  Editing Compnay Information*@
+
+
+                            foreach (System.Data.DataRow US in ViewBag.SheadInfo.Rows)
+                            {
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                    <input value="@US["oid"]" placeholder="Company ID" class="form-control" type="text" disabled>
+                                                    <input name="oid" value="@US["oid"]" type="text" hidden>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                    <input name="name" value="@US["hshd_name"]" placeholder="Company Name" class="form-control" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-record"></i></span>
+                                                    <input name="sign" value="@US["hshd_sign"]" maxlength="2" placeholder="Short Name" class="form-control" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <center>
+                                        <button value="1" name="bt" type="submit" class="btn bt- btn-info">Save Information <span class="glyphicon glyphicon-store"></span></button>
+                                    </center>
+                                </div>
+
+                            }
+
+
+                        }
+                    }
+                    @*Table for showing compnay information*@
+                    @if (ViewBag.SalaryHead != null)
+                    {
+                        <div class="col-md-11">
+                            <div class="card">
+                                <b>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-dollar fa-2x text-info">&nbsp;&nbsp;</i>All Salary Head</b>
+                                <table class="table">
+                                    <tbody>
+                                        @{
+                                            int i = 1;
+                                            foreach (System.Data.DataRow dr in ViewBag.SalaryHead.Rows)
+                                            {
+
+                                                <tr>
+                                                    <td class="text-center">@i</td>
+                                                    <td colspan="2">@dr["hshd_name"]</td>
+                                                    <td>@dr["hshd_sign"]</td>
+
+                                                    @if (@dr["hshd_actv"].ToString() == "1")
+                                                    {
+                                                        <td class="text-right text-success">Active</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="text-right text-danger">Deactivated</td>
+
+                                                    }
+
+                                                    <td class="td-actions text-right">
+                                                        @if (Session["type"].ToString() != "4") 
+                                                        {
+                                                            <a href="SalaryHead?bt=1&cpid=@dr["OID"]" class="btn btn-success btn-simple">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                        }
+                                                        @if (Convert.ToInt32(Session["type"]) < 3) 
+                                                        {
+                                                            if (@dr["hshd_actv"].ToString() == "1")
+                                                            {
+                                                                <a href="SaveSalaryHead?bt=3&cpid=@dr["OID"]&actv=@dr["hshd_actv"]" onclick="return confirm('Disable  Salary Head?');" class="btn btn-danger btn-simple">
+                                                                    <i class="fa fa-close"></i>
+                                                                </a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a href="SaveSalaryHead?bt=3&cpid=@dr["OID"]&actv=@dr["hshd_actv"]" onclick="return confirm('Disable  Salary Head?');" class="btn btn-success btn-simple">
+                                                                    <i class="fa fa-check"></i>
+                                                                </a>
+                                                            }
+                                                        }
+                                    
+                                                    </td>
+                                                </tr>
+                                                    i++;
+                                            }
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
+</div>
+

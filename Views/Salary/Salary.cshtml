@@ -1,0 +1,282 @@
+﻿@{
+    ViewBag.Title = "Salary Creating";
+}
+<div class="container">
+    <form action="SaveSalary" method="post">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card">
+                    <br>
+                    @if (Session["type"].ToString() != "4")
+                    { 
+                    <b>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-dollar fa-2x text-success">&nbsp;&nbsp;</i>Salary information</b>
+                    
+                        if (ViewBag.bt == "0")
+                        {
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                <input name="oid" placeholder="Salary ID" class="form-control" type="text" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                <input name="tsal" placeholder="Total Salary" class="form-control" type="number" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th-large"></i></span>
+                                                <input name="gsal" placeholder="Gross Salary" class="form-control" type="number" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-bold"></i></span>
+                                                <input name="basic" placeholder="Basic Salary" class="form-control" type="number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                                <input name="hrnt" placeholder="House Rent" class="form-control" type="number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-plus"></i></span>
+                                                <input name="mcal" placeholder="Medical Allowance" class="form-control" type="number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
+                                                <input name="conv" placeholder="Convence Amount" class="form-control" type="number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-apple"></i></span>
+                                                <input name="food" placeholder="Food Allowance" class="form-control" type="number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                                <input name="grade" maxlength="2" placeholder="Salary Grade" class="form-control" type="number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <center>
+                                    <button value="0" name="bt" type="submit" class="btn bt- btn-info">Save Information <span class="glyphicon glyphicon-store"></span></button>
+                                </center>
+                            </div>
+                        }
+                        else
+                        {   @*  Editing Compnay Information*@
+
+
+                            foreach (System.Data.DataRow US in ViewBag.SalInfo.Rows)
+                            {
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                    <input placeholder="Salary ID" class="form-control" value="@US["OID"]" type="text" disabled>
+                                                    <input name="oid" value="@US["OID"]" type="text" hidden>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                    <input name="tsal" placeholder="Total Salary" class="form-control" value="@US["esal_totl"]" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-th-large"></i></span>
+                                                    <input name="gsal" placeholder="Gross Salary" class="form-control" value="@US["esal_gros"]" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-bold"></i></span>
+                                                    <input name="basic" placeholder="Basic Salary" class="form-control" value="@US["esal_bsic"]" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                                    <input name="hrnt" placeholder="House Rent" class="form-control" value="@US["esal_hrnt"]" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-plus"></i></span>
+                                                    <input name="mcal" placeholder="Medical Allowance" class="form-control" value="@US["esal_mcal"]" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
+                                                    <input name="conv" placeholder="Convence Amount" class="form-control" value="@US["esal_conv"]" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-apple"></i></span>
+                                                    <input name="food" placeholder="Food Allowance" class="form-control" value="@US["esal_food"]" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                                    <input name="grade" maxlength="2" placeholder="Salary Grade" class="form-control" value="@US["esal_grad"]" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <center>
+                                        <button value="1" name="bt" type="submit" class="btn bt- btn-info">Save Company <span class="glyphicon glyphicon-store"></span></button>
+                                    </center>
+                                </div>
+
+                            }
+
+
+                        }
+                    }
+                    @*Table for showing compnay information*@
+                    @if (ViewBag.Salary != null)
+                    {
+                        <div class="col-md-11">
+                            <div class="card">
+                                <b>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-dollar fa-2x text-success">&nbsp;&nbsp;</i>All Conpany Information</b>
+                                <table class="table">
+                                    <tbody>
+                                        @{
+
+                                            int i = 1;
+                                            foreach (System.Data.DataRow dr in ViewBag.Salary.Rows)
+                                            {
+
+                                                <tr>
+                                                    <td class="text-center">@i</td>
+                                                    <td colspan="2">@dr["esal_gros"]</td>
+                                                    <td>@dr["esal_bsic"]</td>
+                                                    <td class="text-left">@dr["esal_hrnt"]</td>
+                                                    <td class="text-left">@dr["esal_mcal"]</td>
+                                                    <td class="text-left">@dr["esal_conv"]</td>
+                                                    <td class="text-left">@dr["esal_food"]</td>
+                                                    <td class="text-left">@dr["esal_grad"]</td>
+                                                    <td class="td-actions text-right">
+                                                       @if (Session["type"].ToString() != "4") 
+                                                       {
+                                                            <a href="Salary?bt=1&cpid=@dr["OID"]" class="btn btn-success btn-simple">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                       }                                                        
+                                                    </td>
+                                                </tr>
+                                                i++;
+                                            }
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>

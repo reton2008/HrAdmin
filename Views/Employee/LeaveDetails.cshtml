@@ -1,0 +1,401 @@
+﻿@{
+    ViewBag.Title = "Employee Leave Details";
+}
+
+<div class="container">
+    <form action="SaveLeaveDetails" name="dept_form" method="post">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card">
+                    <br>
+                    @if (Session["type"].ToString() != "4") 
+                    {
+                      <b>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-briefcase fa-2x text-primary">&nbsp;&nbsp;</i>Leave Details</b>
+
+                    if (@ViewBag.Message != null)
+                    {
+
+                        <div class="row col-md-offset-1">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <div style="padding:10px ; text-align:center;" class="alert alert-danger">
+                                        <button type="button" aria-hidden="true" class="close">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                        <span>
+                                            <b>   @ViewBag.Message </b>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                     }
+
+                    {
+                        if (ViewBag.bt == "0")
+                        {
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                <input name="oid" placeholder="Leave ID" class="form-control" type="text" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon glyphicon-user"></i></span>
+                                                @{
+                                                    <select class="form-control" name="empl" required>
+
+                                                        <option value="">Select Employee Name</option>
+
+                                                        @foreach (System.Data.DataRow em in ViewBag.Em.Rows)
+                                                        {
+                                                            <option value="@em["oid"]">@em["empl_name"]</option>
+
+                                                        }
+                                                    </select>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                @{
+                                                    <select class="form-control" name="lvtp" id="exampleFormControlSelect1" required>
+
+                                                        <option value="">Select Leave Type</option>
+
+                                                        @foreach (System.Data.DataRow lvtp in ViewBag.LeaveType.Rows)
+                                                        {
+                                                            <option value="@lvtp["oid"]">@lvtp["lvtp_name"]</option>
+
+                                                        }
+                                                    </select>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                @{
+                                                    <select class="form-control" name="lsts" id="exampleFormControlSelect1" required>
+
+                                                        <option value="">Select Leave Status</option>
+
+                                                        @foreach (System.Data.DataRow lsts in ViewBag.LeaveStatus.Rows)
+                                                        {
+                                                            <option value="@lsts["oid"]">@lsts["lsts_name"]</option>
+
+                                                        }
+                                                    </select>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                <input name="prps" placeholder="Leave Perpose" class="form-control" type="text" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                <input name="lday" placeholder="Leave Amount" class="form-control" type="text" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                    <label class="label-control">From Date</label>
+                                                </span>
+                                                <input name="fdate" class="form-control datepicker" value="" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                    <label class="label-control">To Date</label>
+                                                </span>
+                                                <input name="tdate" class="form-control datepicker" value="" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div id="sliderRegular" class="slider" hidden></div>
+                                        <div id="sliderDouble" class="slider slider-info" hidden></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <center>
+                                    <button value="0" name="bt" type="submit" class="btn bt- btn-info">Save Information <span class="glyphicon glyphicon-store"></span></button>
+                                </center>
+                            </div>
+                        }
+                        else
+                        {   @*  Editing Compnay Information*@
+
+
+                            foreach (System.Data.DataRow lvdt in ViewBag.LeaveDetailsInfo.Rows)
+                            {
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                    <input name="oid" value="@lvdt["oid"]" placeholder="Leave Details ID" class="form-control" type="text" disabled>
+                                                    <input name="oid" value="@lvdt["OId"]" type="text" hidden>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon glyphicon-king"></i></span>
+                                                    @{
+                                                        <select class="form-control" name="empl" required>
+
+                                                            @foreach (System.Data.DataRow em in ViewBag.Em.Rows)
+                                                            {
+                                                                if (@em["oid"].ToString() == @lvdt["elvd_empl"].ToString())
+                                                                {
+                                                                    <option value="@em["oid"].ToString()" selected>@em["empl_name"]</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@em["oid"].ToString()">@em["empl_name"]</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                    @{
+                                                        <select class="form-control" name="lvtp" id="exampleFormControlSelect1" required>
+
+                                                            @foreach (System.Data.DataRow lvtp in ViewBag.LeaveType.Rows)
+                                                            {
+
+                                                                if (@lvtp["oid"].ToString() == @lvdt["elvd_lvtp"].ToString())
+                                                                {
+                                                                    <option value="@lvtp["oid"].ToString()" selected>@lvtp["lvtp_name"]</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@lvtp["oid"].ToString()">@lvtp["lvtp_name"]</option>
+                                                                }
+
+                                                            }
+                                                        </select>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                    @{
+                                                        <select class="form-control" name="lsts" id="exampleFormControlSelect1" required>
+
+                                                            <option value="">Select Leave Status</option>
+
+                                                            @foreach (System.Data.DataRow lsts in ViewBag.LeaveStatus.Rows)
+                                                            {
+
+                                                                if (@lsts["oid"].ToString() == @lvdt["elvd_lsts"].ToString())
+                                                                {
+                                                                    <option value="@lsts["oid"].ToString()" selected>@lsts["lsts_name"]</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@lsts["oid"].ToString()">@lsts["lsts_name"]</option>
+                                                                }
+
+                                                            }
+                                                        </select>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                    <input name="prps" value="@lvdt["elvd_prps"]" placeholder="Leave Perpose" class="form-control" type="text" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                    <input name="lday" value="@lvdt["elvd_lday"]" placeholder="Leave Amount" class="form-control" type="text" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                        <label class="label-control">From Date</label>
+                                                    </span>
+                                                    <input name="fdate" value="@lvdt["elvd_fdat"]" class="form-control datepicker" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                        <label class="label-control">To Date</label>
+                                                    </span>
+                                                    <input name="tdate" class="form-control datepicker" value="@lvdt["elvd_tdat"]" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div id="sliderRegular" class="slider" hidden></div>
+                                            <div id="sliderDouble" class="slider slider-info" hidden></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <center>
+                                        <button value="1" name="bt" type="submit" class="btn bt- btn-info">Save Information <span class="glyphicon glyphicon-store"></span></button>
+                                    </center>
+                                </div>
+                            }
+                         }
+                    }
+                    }
+                    @*Table for showing Designation information*@
+                    @if (ViewBag.LeaveDetails != null)
+                    {
+                        <div class="col-md-11">
+                            <div class="card">
+                                <b>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-briefcase fa-2x text-primary">&nbsp;&nbsp;</i>All Designation</b>
+                                <table class="table">
+                                    <tbody>
+                                        @{
+                                            int i = 1;
+                                            foreach (System.Data.DataRow dr in ViewBag.LeaveDetails.Rows)
+                                            {
+                                                <tr>
+                                                    <td class="text-center">@i</td>
+                                                    <td colspan="2">@dr["empl_name"]</td>
+                                                    <td colspan="2">@dr["lvtp_name"]</td>
+                                                    <td colspan="2">@dr["lsts_name"]</td>
+                                                    <td>@dr["elvd_lday"] Day's</td>
+                                                    <td> Date: @String.Format("{0:dd/MM/yyyy}", @dr["elvd_fdat"]) &nbsp; - &nbsp; @String.Format("{0:dd/MM/yyyy}", @dr["elvd_tdat"]) </td>
+                                                    <td class="td-actions text-right">
+                                                    @if (Session["type"].ToString() != "4")
+                                                    {
+                                                        <a href="LeaveDetails?bt=1&cpid=@dr["OID"]" class="btn btn-success btn-simple">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                    }                  
+                                                    </td>
+                                                </tr>
+                                                i++;
+                                            }
+                                        }
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            md.initSliders()
+            demo.initFormExtendedDatetimepickers();
+        });
+    </script>
+}

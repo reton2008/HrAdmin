@@ -1,0 +1,285 @@
+﻿@{
+    ViewBag.Title = "User Creating";
+}
+
+<div class="container-fluid">
+    <div class="col-sm-10">
+        <!--      Wizard container        -->
+        <div class="wizard-container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon" data-background-color="rose">
+                            <i class="fa fa-users fa-2x"></i>
+                        </div><br>
+                        <div class="card-content">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingTwo">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <h4 class="panel-title">
+                                            Create User
+                                            <i class="fa fa-arrow-up" ></i><br>
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <form action="SaveUser" enctype="multipart/form-data" method="post">
+
+                                                <div class="row">
+                                                    @{
+
+                                                        <div class="col-sm-4 col-sm-offset-1">
+                                                            <div class="picture-container">
+                                                                <div class="picture">
+                                                                    <img class="img" src="@Url.Content(String.Format("~/img/image_placeholder.jpg"))" />
+                                                                    <input type="file" name="image" id="wizard-picture" disabled>
+                                                                </div>
+
+                                                                <h6>Choose Picture</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="card-content">
+                                                                <div class="form-group label-floating">
+                                                                    <label class="control-label">ID</label>
+                                                                    <input type="text" name="oid" class="form-control" disabled>
+                                                                </div>
+                                                                <div class="form-group label-floating">
+                                                                    <label class="control-label">Full name</label>
+                                                                    <input type="text" name="fname" class="form-control" required>
+                                                                </div>
+                                                                <div class="form-group label-floating">
+                                                                    <label class="control-label">User name</label>
+                                                                    <input type="text" name="uname" class="form-control" required>
+                                                                </div>
+                                                                <div class="form-group label-floating">
+                                                                    <label class="control-label">Password</label>
+                                                                    <input type="password" name="pass" class="form-control" required>
+                                                                </div>
+                                                                <div class="form-group label-floating">
+                                                                    <label class="control-label">Re-type password</label>
+                                                                    <input type="password" name="pass2" class="form-control">
+                                                                    <input class="hidden" value="0" name="bt" />
+                                                                </div>
+                                                                    <div class="row">
+                                                                        <p><b>User Role</b></p>
+                                                                        <div class="col-sm-10">
+                                                                            <div class="checkbox checkbox-inline">
+                                                                                <label>
+                                                                                    <input type="radio" name="role" value="2"> Admin
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="checkbox checkbox-inline">
+                                                                                <label>
+                                                                                    <input type="radio" name="role" value="3"> Editor
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="checkbox checkbox-inline">
+                                                                                <label>
+                                                                                    <input type="radio" name="role" value="4" checked="true"> View
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                            </div>
+                                                        </div>
+                                                        <center>
+                                                            <button type="submit" class="btn btn-fill btn-blue">Submit</button>
+                                                        </center>
+                                                    }
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <h4 class="panel-title">
+                                                All User List
+                                                <i class="fa fa-arrow-down"></i>
+                                            </h4>
+                                        </a>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body">
+                                            @{
+                                                if (ViewBag.bt == 0)
+                                                {
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <tbody>
+                                                                @{
+                                                                    int i = 1;
+                                                                    foreach (System.Data.DataRow dr in ViewBag.Users.Rows)
+                                                                    {
+
+                                                                        <tr>
+                                                                            <td class="text-center">@i</td>
+                                                                            <td colspan="4">@dr["USER_TEXT"]</td>
+                                                                            <td colspan="4">@dr["USER_NAME"]</td>
+
+
+                                                                            @if(@dr["USER_TYPE"].ToString() == "1")
+                                                                            {
+                                                                            <td class="text-center">Creator</td>
+                                                                            }
+                                                                            else if (@dr["USER_TYPE"].ToString() == "2")
+                                                                            {
+                                                                            <td class="text-center">Admin</td>
+                                                                            }
+                                                                            else if (@dr["USER_TYPE"].ToString() == "3")
+                                                                            {
+                                                                            <td class="text-center">Editor</td>
+                                                                            }else
+                                                                            {
+                                                                            <td class="text-center">Visitor</td>
+                                                                            }
+
+                                                                            
+                                                                            @if (@dr["USER_ACTV"].ToString() == "1")
+                                                                            {
+                                                                                <td class="text-right text-success">Active</td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <td class="text-right text-danger">Deactivated</td>
+                                                                            }
+                                                                            <td class="td-actions text-right">
+                                                                                <a href="User?bt=1&cpid=@dr["OID"]" class="btn btn-success btn-simple">
+                                                                                    <i class="fa fa-pencil"></i>
+                                                                                </a>
+                                                                                @if (@dr["USER_ACTV"].ToString() == "1")
+                                                                                {
+                                                                                    <a href="UpdateUserActv?bt=3&cpid=@dr["OID"]&actv=@dr["USER_ACTV"]" onclick="return confirm('Disable this user?');" class="btn btn-danger btn-simple">
+                                                                                        <i class="fa fa-close"></i>
+                                                                                    </a>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <a href="UpdateUserActv?bt=3&cpid=@dr["OID"]&actv=@dr["USER_ACTV"]" onclick="return confirm('Enable this user?');" class="btn btn-success btn-simple">
+                                                                                        <i class="fa fa-check"></i>
+                                                                                    </a>
+
+
+                                                                                }
+                                                                            </td>
+                                                                        </tr>
+                                                                                i++;
+                                                                    }
+                                                                                }
+
+
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+
+                                                    foreach (System.Data.DataRow dt in @ViewBag.SingleUser2.Rows)
+                                                    {
+                                                        <div class="row">
+                                                            <form action="SaveUser" enctype="multipart/form-data" method="post">
+
+                                                                <div class="row">
+                                                                    <div class="col-sm-4 col-sm-offset-1">
+                                                                        <div class="picture-container">
+                                                                            @if (ViewBag.ImageUrl == "0")
+                                                                            {
+                                                                                <div class="picture">
+                                                                                    <img class="img" src="@Url.Content(String.Format("~/img/image_placeholder.jpg"))" />
+                                                                                    <input type="file" name="image" id="wizard-picture">
+                                                                                </div>
+
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <div class="picture">
+                                                                                    <img class="img" src="@ViewBag.ImageUrl" />
+                                                                                    <input type="file" name="image" id="wizard-picture">
+                                                                                </div>
+                                                                            }
+                                                                            <h6>Choose Picture</h6>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6">
+                                                                        <div class="card-content">
+                                                                            <div class="form-group label-floating">
+                                                                                <label class="control-label">ID</label>
+                                                                                <input type="text" value="@dt["OID"]" class="form-control" disabled>
+                                                                                <input type="text" value="@dt["OID"]" name="oid" hidden>
+                                                                            </div>
+                                                                            <div class="form-group label-floating">
+                                                                                <label class="control-label">Full name</label>
+                                                                                <input type="text" value="@dt["USER_NAME"]" name="fname" class="form-control">
+                                                                            </div>
+                                                                            <div class="form-group label-floating">
+                                                                                <label class="control-label">User name</label>
+                                                                                <input type="text" value="@dt["USER_ENID"]" name="uname" class="form-control">
+                                                                            </div>
+                                                                            <div class="form-group label-floating">
+                                                                                <label class="control-label">Password</label>
+                                                                                <input type="password" value="@dt["USER_PASS"]" name="pass" class="form-control">
+                                                                            </div>
+                                                                            <div class="form-group label-floating">
+                                                                                <label class="control-label">Re-type password</label>
+                                                                                <input type="password" value="@dt["USER_PASS"]" name="pass2" class="form-control">
+                                                                                <input class="hidden" value="1" name="bt" />
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <p><b>User Role</b></p>
+                                                                                <div class="col-sm-10">
+                                                                                    <div class="checkbox checkbox-inline"> 
+                                                                                        <label>
+                                                                                            <input type="radio" name="role" value="2"  > Admin
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <div class="checkbox checkbox-inline">
+                                                                                        <label>
+                                                                                            <input type="radio" name="role" value="3"> Editor
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <div class="checkbox checkbox-inline">
+                                                                                        <label>
+                                                                                            <input type="radio" name="role" value="4" checked="true"> View
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <center>
+                                                                        <button type="submit" class="btn btn-fill btn-blue">Submit</button>
+                                                                    </center>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+
+                                                    }
+
+                                                }
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @section scripts {
+
+                <script type="text/javascript">
+                    $().ready(function () {
+                        demo.initMaterialWizard();
+                    });
+                </script>
+            }

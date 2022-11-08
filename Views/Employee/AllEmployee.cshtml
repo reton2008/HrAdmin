@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "All Employee";
+}
+<div class="container">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="card">
+                @if (ViewBag.EmployeeList != null)
+                {
+                    <div class="col-md-11">
+                        <div class="card">
+                            <b>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-users fa-2x text-primary">&nbsp;&nbsp;</i>All Employee List</b>
+                            <table class="table">
+                                <tbody>
+                                    @{
+                                        int i = 1;
+                                        foreach (System.Data.DataRow dr in ViewBag.EmployeeList.Rows)
+                                        {
+
+                                            <tr>
+                                                <td class="text-center">@i</td>
+                                                <td colspan="2">@dr["empl_name"]</td>
+                                                <td>@dr["prof_text"]</td>
+                                                <td>@dr["dept_name"]</td>
+                                                <td>@dr["desgtp_name"]</td>
+                                                <td>@dr["desg_name"]</td>
+                                                <td>@dr["esim_nmbr"]</td>
+                                                @if (@dr["empl_stat"].ToString() == "1")
+                                                {
+                                                    <td class="text-right text-success">Working</td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="text-right text-danger">Not Working</td>
+
+                                                }
+
+                                                <td class="td-actions text-right">
+                                                    <a href="EmProfile?bt=1&pro=@dr["empl_prof"]&cpid=@dr["OID"]" class="btn btn-info btn-simple">
+                                                        <i class="fa fa-id-card"></i>
+                                                    </a>
+                                                    @if (Session["type"].ToString() != "4") 
+                                                    {
+                                                        <a href="Employee?bt=1&cpid=@dr["OID"]" class="btn btn-success btn-simple">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                    }
+                                                    @if (Convert.ToInt32(Session["type"]) < 3) 
+                                                    {
+                                                        if (@dr["empl_stat"].ToString() == "1")
+                                                        {
+                                                            <a href="UpdateProfile?bt=3&cpid=@dr["OID"]&actv=@dr["empl_stat"]" onclick="return confirm('Are you sure!! you want to disable this employe?');" class="btn btn-danger btn-simple">
+
+                                                                <i class="fa fa-close"></i>
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="UpdateProfile?bt=3&cpid=@dr["OID"]&actv=@dr["empl_stat"]" onclick="return confirm('Are you sure !! you want to enable this employe?');" class="btn btn-success btn-simple">
+
+                                                                <i class="fa fa-check"></i>
+                                                            </a>
+                                                        }
+                                                    }
+                                                </td>
+                                            </tr>
+                                               i++;
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

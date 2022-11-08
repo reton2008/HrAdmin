@@ -1,0 +1,127 @@
+﻿@{
+    ViewBag.Title = "Employee Profile";
+}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-content">
+                        <div style="padding:5px;">
+                            <table class="table">
+                                <tbody>
+                                    @foreach (System.Data.DataRow pro in ViewBag.Profile.Rows)
+                                    {
+                                        if (Session["type"].ToString() != "4") 
+                                        {
+                                            <a href="@Url.Action("CreateProfile", "Employee",new { cpid = @pro["oid"].ToString(), bt = 0 },null)" class="btn btn-info pull-right">Edit Profile</a>
+                                        }
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+
+                                        <tr style="padding-bottom:50px">
+                                            <td><b> Father's Name </b></td>
+                                            <td>@pro["prof_fnam"]</td>
+                                            <td><b> Mother's Name </b></td>
+                                            <td>@pro["prof_mnam"]</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 25%"><b> Present Address </b></td>
+                                            <td colspan="3">@pro["prof_padd"]</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 25%"><b> Permanent Address</b></td>
+                                            <td colspan="3">@pro["prof_radd"]</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b> Personal Phone </b></td>
+                                            <td>@pro["prof_pphn"]</td>
+                                            <td><b> Home Phone </b></td>
+                                            <td>@pro["prof_hphn"]</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b> National ID </b></td>
+                                            <td>@pro["prof_pnid"]</td>
+                                            <td><b> E-mail </b></td>
+                                            <td>@pro["prof_mail"]</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b> Bank Account </b></td>
+                                            <td colspan="3">@pro["prof_acno"]</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b> Reference </b></td>
+                                            <td colspan="3">@pro["prof_refr"]</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b> Remark </b></td>
+                                            <td colspan="3">@pro["prof_rmrk"]</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b> Nick Name </b></td>
+                                            <td colspan="3">@pro["prof_nnam"]</td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-profile">
+                    <div style="padding:20px;" class="card-content text-justify">
+                        @foreach (System.Data.DataRow em in ViewBag.EmployeeInfo.Rows)
+                        {
+                            if (@em["image"] != null)
+                            {
+                                <div class="card-avatar">
+                                    <a href="#pablo">
+                                        <img class="img" src="@Url.Content(String.Format("~/img/Employee/{0}", @em["image"]))" />
+                                    </a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="card-avatar">
+                                    <a href="#pablo">
+                                        <img class="img" src="@Url.Content(String.Format("~/img/image_placeholder.jpg"))" />
+                                    </a>
+                                </div>
+                            }
+
+
+                            <h3 class="card-title"><b>@em["empl_name"]</b></h3>
+                            <h5 class="category text-gray"><b>@em["desgtp_name"] @em["desg_name"] - @em["dept_name"] </b></h5>
+                            <p class="category text-gray"><b>Location - @em["jloc_name"] </b></p>
+                            <p class="category text-gray"><b>Employee ID: - @em["prof_text"] </b></p>
+                            <p class="category text-gray"><b>Contact No: - @em["esim_nmbr"] </b></p>
+                            <p class="category text-gray"><b>Join Date: -@String.Format("{0:dd/MM/yyyy}", @em["empl_jndt"])  </b></p>
+                            <p class="category text-gray"><b>Gross Salary: - @em["esal_totl"] Tk.  </b></p>
+                            <p class="category text-gray"><b>Blood Group: - @em["bldg_bnam"] </b></p><br>
+                            <br>
+                            if (@em["empl_stat"].ToString() == "1")
+                            {
+                                <p class="category text-success"><b>Status: - Working </b></p><br><br>
+                            }
+                            else
+                            {
+                                <p class="category text-danger"><b>Status: - Not Working </b></p><br><br>
+                            }
+                            if (Session["type"].ToString() != "4") 
+                            {
+                                <a href="@Url.Action("Employee", "Employee",new { cpid = @em["oid"].ToString(), bt = 1 },null)" class="btn btn-info btn-round">Edit</a>
+                            }    
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

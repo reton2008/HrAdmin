@@ -1,0 +1,178 @@
+﻿
+<div class="sidebar-wrapper">
+    <div class="user">
+        <div class="photo">
+            @if (@Session["image"].ToString() == "0")
+            {
+                <img class="img" src="@Url.Content(String.Format("~/img/image_placeholder.jpg"))" alt="profile" />
+            }
+            else
+            {
+                <img src="@Session["image"]" alt="profile" />
+            }
+
+        </div>
+        <div class="info">
+            <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                @Session["UserName"]
+                <b class="caret"></b>
+            </a>
+            <div class="collapse" id="collapseExample">
+                <ul class="nav">
+                    <li>
+                        <a href="@Url.Action("Logout", "Login")">Lagout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <ul class="nav">
+        <li class="active">
+            <a href="@Url.Action("Index", "Home")">
+                <i class="fa fa-bars"></i>
+                <p>Dashboard</p>
+            </a>
+        </li>
+        @{
+            foreach (System.Data.DataRow dr in @ViewBag.DataPass.Rows)
+            {
+                <li>
+                    <a data-toggle="collapse" href="#@dr["dpclass"]">
+                        <i class="fa fa-bars"></i>
+                        <p>
+
+                            @dr["MNUM_NAME"]
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+
+
+                    <div class="collapse" id="@dr["dpclass"]">
+                        <ul class="nav">
+                            @foreach (System.Data.DataRow dt in @ViewBag.DataPass2.Rows)
+                            {
+
+                                if (@dr["OID"].ToString() == @dt["mnud_mnum"].ToString())
+                                {
+                                    <li>
+
+                                        @Html.ActionLink(@dt["mnud_snam"].ToString(), @dt["mnud_name"].ToString(), @dt["mnud_page"].ToString(), new { cpid = 0, bt = 0 }, null)
+                                    </li>
+
+                                }
+
+
+                            }
+                        </ul>
+                    </div>
+                </li>
+            }
+        }
+        <!--li>
+            <a data-toggle="collapse" href="#componentsExamples">
+                <i class="material-icons">apps</i>
+                <p>
+                    Salary Management
+                    <b class="caret"></b>
+                </p>
+            </a>
+            <div class="collapse" id="componentsExamples">
+                <ul class="nav">
+                    <li>
+                        <1@Html.ActionLink("Salary", "Salary", "Salary")
+                    </li>
+                    <li>
+                        <1@Html.ActionLink("TA/DA", "TaDa", "Salary")
+                    </li>
+                    <li>
+                        <1@Html.ActionLink("Eid Bonus", "EidBonus", "Salary")
+                    </li>
+                </ul>
+            </div>
+        </!--li>
+        <li>
+            <a data-toggle="collapse" href="#formsExamples">
+                <i class="material-icons">content_paste</i>
+                <p>
+                    Notice
+                    <b class="caret"></b>
+                </p>
+            </a>
+            <div class="collapse" id="formsExamples">
+                <ul class="nav">
+                    <li>
+                       <1@Html.ActionLink("Meeting", "Meeting", "Notice")
+                    </li>
+                    <li>
+                        <1@Html.ActionLink("Holydays", "Holydays", "Notice")
+                    </li>
+                </ul>
+            </div>
+        </!--li>
+        <li>
+            <a data-toggle="collapse" href="#tablesExamples">
+                <i class="material-icons">grid_on</i>
+                <p>
+                    Reports
+                    <b class="caret"></b>
+                </p>
+            </a>
+            <div class="collapse" id="tablesExamples">
+                <ul class="nav">
+                    <li>
+                        <1@Html.ActionLink("Salary Report", "Index", "Home")
+                    </li>
+                    <li>
+                        <1@Html.ActionLink("Ta-Da Report", "Index", "Home")
+                    </li>
+                    <li>
+                        <1@Html.ActionLink("Vacation Report", "Index", "Home")
+                    </li>
+                    <li>
+                        <1@Html.ActionLink("Food", "Index", "Home")
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <!--li>
+            <a data-toggle="collapse" href="#mapsExamples">
+                <i class="material-icons">place</i>
+                <p>
+                    Maps
+                    <b class="caret"></b>
+                </p>
+            </a>
+            <div class="collapse" id="mapsExamples">
+                <ul class="nav">
+                    <li>
+                        <a href="maps/google.html">Google Maps</a>
+                    </li>
+                    <li>
+                        <a href="maps/fullscreen.html">Full Screen Map</a>
+                    </li>
+                    <li>
+                        <a href="maps/vector.html">Vector Map</a>
+                    </li>
+                </ul>
+            </div>
+        </!--li>
+        <li>
+            <a href="widgets.html">
+                <i class="material-icons">widgets</i>
+                <p>Widgets</p>
+            </a>
+        </li>
+        <li>
+            <a href="charts.html">
+                <i class="material-icons">timeline</i>
+                <p>Charts</p>
+            </a>
+        </li>
+        <li>
+            <a href="calendar.html">
+                <i class="material-icons">date_range</i>
+                <p>Calendar</p>
+            </a>
+        </li-->
+    </ul>
+</div>

@@ -1,0 +1,215 @@
+﻿@{
+    ViewBag.Title = "Update Employee Information";
+}
+<div class="container">
+    <form action="UpdateProfile" enctype="multipart/form-data" method="post">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card">
+                    <br>
+                    <b>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-user-circle-o fa-2x text-gray">&nbsp;&nbsp;</i>Update Profile</b>
+                    @{
+                        foreach (System.Data.DataRow pro in ViewBag.Profile.Rows)
+                        {
+                            <div class="row">
+                                <div class="col-md-4 col-md-offset-1">
+                                    <br>
+                                    <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                        <div class="fileinput-new thumbnail">
+                                            @if (@pro["image"] != null)
+                                            {
+                                                <img src="@Url.Content(@Url.Content(String.Format("~/img/Employee/{0}", @pro["image"])))" alt="...">
+                                            }
+                                            else
+                                            {
+                                                <img src="@Url.Content("~/img/image_placeholder.jpg")" alt="...">
+                                            }
+
+                                        </div>
+                                        <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                        <div>
+                                            <span class="btn btn-rose btn-round btn-file">
+                                                <span width="10px" class="fileinput-new">Select image</span>
+                                                <span class="fileinput-exists">Change</span>
+                                                <input type="file" name="image" />
+                                            </span>
+                                            <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-md-offset-1">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
+                                                <input placeholder="@ViewBag.EmployeeID.ToString()" class="form-control" type="text" disabled>
+                                                <input name="oid" value="@ViewBag.EmployeeID.ToString()" type="text" hidden>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6 col-md-offset-1">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                <input name="nname" value="@pro["prof_nnam"]" placeholder="Nick Name" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-md-offset-1">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                <input name="fname" value="@pro["prof_fnam"]" placeholder="Father's Name" class="form-control" type="text" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-md-offset-1">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-female"></i></span>
+                                                <input name="mname" value="@pro["prof_mnam"]" placeholder="Mother's Name" class="form-control" type="text" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-credit-card"></i></span>
+                                                <textarea name="padd" value="@pro["prof_padd"]" placeholder="Present Address" class="form-control" type="text" required> @pro["prof_padd"] </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                                <textarea name="radd" value="@pro["prof_radd"]" placeholder="Permanent Address" class="form-control" type="text" required> @pro["prof_radd"] </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                                                <input name="pnumbr" value="@pro["prof_pphn"]" maxlength="11" placeholder="Personal Phone Number" class="form-control" type="text" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+                                                <input name="hnumbr" value="@pro["prof_hphn"]" maxlength="11" placeholder="Home Phone Number" class="form-control" type="text" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-credit-card"></i></span>
+                                                <input name="nid" value="@pro["prof_pnid"]" placeholder="National ID" class="form-control" type="text" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-credit-card"></i></span>
+                                                <input name="email" value="@pro["prof_mail"]" placeholder="Email" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                                <input name="bname" value="@pro["prof_acno"]" placeholder="Bank account with branch name" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                                <input name="refr" value="@pro["prof_refr"]" placeholder="Reference name & contact Number" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                                <input name="remark" value="@pro["prof_rmrk"]" placeholder="Remark" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-10 inputGroupContainer">
+                                            <div class="input-group">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <br>
+                        <div class="form-group">
+                            <center>
+                                <button name="bt" value="0" type="submit" class="btn bt- btn-info">Update Profile <span class="glyphicon glyphicon-store"></span></button>
+                            </center>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts {
+
+    <script type="text/javascript">
+        $().ready(function () {
+            demo.initMaterialWizard();
+        });
+
+    </script>
+}

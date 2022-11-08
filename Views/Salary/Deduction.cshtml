@@ -1,0 +1,367 @@
+﻿@{
+    ViewBag.Title = "Salary Deduction";
+}
+<div class="container">
+    <form action="SaveDeduction" method="post">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card">
+                    <br>
+                    <b>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-cut fa-2x text-success">&nbsp;&nbsp;</i>Salary Deduction</b>
+                    @{
+                        if (Session["type"].ToString() != "4") 
+                        {
+                            if (ViewBag.bt == "0") 
+                            {
+                                <div class="row">
+                                    <div class="col-md-6"> 
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                    <input name="oid" placeholder="ID" class="form-control" type="text" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                    @{
+                                                        <select class="form-control" name="empl" type="text" id="exampleFormControlSelect1" required>
+
+                                                            <option value="">Select Employee</option>
+
+                                                            @foreach (System.Data.DataRow em in ViewBag.employee.Rows)
+                                                            {
+                                                                <option value="@em["oid"]">@em["empl_name"]</option>
+
+                                                            }
+                                                        </select>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-record"></i></span>
+                                                    @{
+                                                        <select class="form-control" name="acyl" type="text" id="exampleFormControlSelect1" required>
+
+                                                            <option value="">Select Salary Cycle</option>
+
+                                                            @foreach (System.Data.DataRow acyl in ViewBag.SalCycle.Rows)
+                                                            {
+                                                                <option value="@acyl["oid"]">@acyl["acyl_name"]</option>
+
+                                                            }
+                                                        </select>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    @{
+                                                        <select class="form-control" name="hshd" type="text" id="exampleFormControlSelect1" required>
+
+                                                            <option value="">Select Salary Head</option>
+
+                                                            @foreach (System.Data.DataRow hshd in ViewBag.SalHead.Rows)
+                                                            {
+                                                                <option value="@hshd["oid"]">@hshd["hshd_name"]</option>
+
+                                                            }
+                                                        </select>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                        <label class="label-control">Date</label>
+                                                    </span>
+                                                    <input name="fdate" class="form-control datepicker" value="" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sound-7-1"></i></span>
+                                                    <input name="amnt" placeholder="Deduted Amount" class="form-control" type="number" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                                                    <input name="note" placeholder="Note" class="form-control" type="text" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-10 inputGroupContainer">
+                                                <div class="input-group">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div id="sliderRegular" class="slider" hidden></div>
+                                            <div id="sliderDouble" class="slider slider-info" hidden></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <center>
+                                        <button value="0" name="bt" type="submit" class="btn bt- btn-info">Save Information <span class="glyphicon glyphicon-store"></span></button>
+                                    </center>
+                                </div>
+                            }
+                            else
+                            {   @*  Editing Compnay Information*@
+
+
+                                foreach (System.Data.DataRow US in ViewBag.DeductionDetails.Rows)
+                                {
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="col-md-10 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                        <input placeholder="Company ID" class="form-control" type="text" value="@US["oid"]" disabled>
+                                                        <input name="oid" value="@US["oid"]" hidden>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="col-md-10 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-face"></i></span>
+                                                         @{
+                                                                 <select class="form-control" name="empl" type="text" id="exampleFormControlSelect1" required>
+                                                                        @foreach (System.Data.DataRow em in ViewBag.employee.Rows)
+                                                                    {
+                                                                        if (@em["oid"].ToString() == @US["esam_empl"].ToString())
+                                                                        {
+                                                                            <option value="@em["oid"]" selected>@em["empl_name"]</option>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <option value="@em["oid"]">@em["empl_name"]</option>
+                                                                        }
+                                                                    }
+                                                                 </select>
+                                                            }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="col-md-10 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-record"></i></span>
+                                                        <select class="form-control" name="acyl" type="text" id="exampleFormControlSelect1" required>
+                                                            @foreach (System.Data.DataRow cycl in ViewBag.SalCycle.Rows)
+                                                            {
+                                                                if (@cycl["oid"].ToString() == @US["esam_acyl"].ToString())
+                                                                {
+                                                                    <option value="@cycl["oid"]" selected>@cycl["acyl_name"]</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@cycl["oid"]">@cycl["acyl_name"]</option>
+                                                                }
+                                                            }
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="col-md-10 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-record"></i></span>
+                                                        <select class="form-control" name="hshd" type="text" id="exampleFormControlSelect1" required>
+                                                            @foreach (System.Data.DataRow Sal in ViewBag.SalHead.Rows)
+                                                            {
+                                                                if (@Sal["oid"].ToString() == @US["esam_hshd"].ToString())
+                                                                {
+                                                                    <option value="@Sal["oid"]" selected>@Sal["hshd_name"]</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@Sal["oid"]">@Sal["hshd_name"]</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="col-md-10 inputGroupContainer">
+                                                    <div class="input-group date">
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                            <label class="label-control">Date</label>
+                                                        </span>
+                                                        <input name="fdate" class="form-control datepicker" value="@String.Format("{0:dd/MM/yyyy}", @US["esam_date"])" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="col-md-10 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-sound-7-1"></i></span>
+                                                        <input name="amnt" placeholder="Deduted Amount" value="@US["esam_amnt"]" class="form-control" type="number" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="col-md-10 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-record"></i></span>
+                                                        <input name="note" placeholder="Working Days" class="form-control" value="@US["esam_note"]" type="text" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="col-md-10 inputGroupContainer">
+                                                    <div class="input-group">
+                                                    
+                                                    
+                                                   </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div class="row">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div id="sliderRegular" class="slider" hidden></div>
+                                                    <div id="sliderDouble" class="slider slider-info" hidden></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <center>
+                                                <button value="1" name="bt" type="submit" class="btn bt- btn-info">Save Information <span class="glyphicon glyphicon-store"></span></button>
+                                            </center>
+                                        </div>
+                                    </div>
+
+                                 }
+                             }
+                        }
+                    }
+                    @*Table for showing compnay information*@
+                    @if (ViewBag.Deduction != null)
+                    {
+                        <div class="col-md-11">
+                            <div class="card">
+                                <b>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-cut fa-2x text-info">&nbsp;&nbsp;</i>All Salary Deduction</b>
+                                <table class="table">
+                                    <tbody>
+                                        @{
+                                            int i = 1;
+                                            foreach (System.Data.DataRow dr in ViewBag.Deduction.Rows)
+                                            {
+
+                                                <tr>
+                                                    <td class="text-center">@i</td>
+                                                    <td>@dr["empl_name"]</td>
+                                                    <td>@String.Format("{0:dd/MM/yyyy}", @dr["esam_date"])</td>
+                                                    <td>@dr["esam_amnt"]</td>
+                                                    <td>@dr["esam_note"]</td>
+                                                    <td class="td-actions text-right">
+                                                        @if(Session["type"].ToString() != "4")
+                                                        {
+                                                            <a href="Deduction?bt=1&cpid=@dr["OID"]" class="btn btn-success btn-simple">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                        }
+                                                        @if (Convert.ToInt32(Session["type"]) < 3)
+                                                        {
+                                                            <a href="SaveDeduction?bt=3&cpid=@dr["OID"]" onclick="return confirm('Delete  Salary Deduction?');" class="btn btn-danger btn-simple">
+                                                                <i class="fa fa-close"></i>
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                i++;
+                                              }
+                                           }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+@section scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            md.initSliders()
+            demo.initFormExtendedDatetimepickers();
+        });
+    </script>
+}
